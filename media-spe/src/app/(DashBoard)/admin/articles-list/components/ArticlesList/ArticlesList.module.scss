@@ -1,0 +1,16 @@
+.list{
+    background-color: #f9f9f9;
+    max-width: 80em;
+    border-radius: 4px;
+    border: solid 0.5px #ededed;
+    padding: 0.5em;
+    margin: 0.5em 0em;
+    display: flex;
+    justify-content: space-between;
+    button{
+        border: #e88c8c solid 1.5px;
+        color: #e88c8c;
+        padding: 0.3em;
+        border-radius: 5px;
+    }
+}

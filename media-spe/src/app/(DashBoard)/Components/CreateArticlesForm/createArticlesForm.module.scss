@@ -1,0 +1,35 @@
+.formCreateArticles{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    form{
+        width: 100%;
+        max-width: 500px;
+        label{
+            display: flex;
+            flex-direction: column;
+            margin: 0.5em 0em;
+            width: 100%;
+        }
+        input, textarea{
+            background-color: rgb(232, 232, 232);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px 0px;
+            width: 100%;
+        }
+        button{
+            background-color: #ba76d5;
+            color: white;
+            outline: #ae6dc8 1.5px solid;
+            padding: 7px 13px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        button:hover{
+            background-color: #c385db;
+            outline: #b986cd 1.5px solid;
+    
+        }
+    }
+}

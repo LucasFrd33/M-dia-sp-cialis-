@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import style from "./createArticlesForm.module.scss";
 
 function CreateArticlesForm() {
   const { register, handleSubmit, reset } = useForm();
@@ -31,7 +32,7 @@ function CreateArticlesForm() {
   }
 
   return (
-    <div className="h-screen flex justify-center">
+    <div className={style.formCreateArticles}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center items-center"
