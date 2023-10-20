@@ -1,3 +1,25 @@
 .home{
-
+    form{
+        width: 100%;
+        max-width: 500px;
+        label{
+            display: flex;
+            flex-direction: column;
+            margin: 0.5em 0em;
+            width: 100%;
+        }
+        input, textarea{
+            background-color: rgb(232, 232, 232);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px 0px;
+            width: 100%;
+        }
+        button{
+            background-color: rgb(161, 208, 223);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+    }
 }

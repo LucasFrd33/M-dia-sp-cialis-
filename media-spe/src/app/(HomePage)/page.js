@@ -1,9 +1,14 @@
-import React from 'react'
+import Articles from "./Components/Articles/Articles";
+import prisma from "@/utils/prisma";
 
-function HomePage() {
-    return (
-        <div>HomePage</div>
-    )
+export default async function HomePage() {
+  const articles = await prisma.articles.findMany();
+
+  return (
+    <div>
+      {articles.map((articles) => (
+        <Articles articles={articles} />
+      ))}
+    </div>
+  );
 }
-
-export default HomePage

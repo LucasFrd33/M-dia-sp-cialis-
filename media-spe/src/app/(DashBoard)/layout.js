@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import styles from "./styles/dashboard.module.scss";
 import "../styles/globals.css";
+import Header from "./Components/Header/Header";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,7 +18,10 @@ export default function DashBoardLayout({ children }) {
   return (
     <html lang="fr">
       <body className={`${poppins.variable} ${styles.main}`}>
-        <main className={`${styles.admin}`}>{children}</main>
+        <main className={`${styles.admin}`}>
+          <Header />
+          {children}
+        </main>
       </body>
     </html>
   );
