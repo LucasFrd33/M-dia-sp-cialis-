@@ -1,0 +1,18 @@
+.header{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    .button{
+        background-color: #ba76d5;
+        color: white;
+        outline: #ae6dc8 1.5px solid;
+        padding: 7px 13px;
+        border-radius: 3px;
+    }
+    .button:hover{
+        background-color: #c385db;
+        outline: #b986cd 1.5px solid;
+
+    }
+}
