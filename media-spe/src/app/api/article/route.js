@@ -14,3 +14,12 @@ export async function POST(data) {
   const { title, content, file, ...rest } = article;
   return NextResponse.json(rest);
 }
+
+export async function DELETE(req) {
+  const { id } = await req.json();
+  console.log(req.json());
+  await prisma.articles.delete({
+    where: { id: id },
+  });
+  return NextResponse.json({ message: `L'articles ${id} a était supprimé` });
+}
