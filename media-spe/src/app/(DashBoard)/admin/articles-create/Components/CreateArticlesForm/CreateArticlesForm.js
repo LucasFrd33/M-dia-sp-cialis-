@@ -2,9 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import style from "./createArticlesForm.module.scss";
+import { useRouter } from "next/navigation";
 
 function CreateArticlesForm() {
   const { register, handleSubmit, reset } = useForm();
+  const router = useRouter();
 
   function onSubmit(data) {
     const file = data.file[0];
@@ -24,6 +26,7 @@ function CreateArticlesForm() {
         .then((response) => response.json())
         .then((data) => {
           reset();
+          router.refresh();
         })
         .catch((error) => console.error("Error:", error));
     };
