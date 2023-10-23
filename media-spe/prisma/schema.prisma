@@ -20,8 +20,8 @@ model Articles {
   title     String
   media   String
   miniatureArticle String
-  date      DateTime
-  source    String
+  date      DateTime @default(now())
+  source    String?
   isHeadline Boolean @default(false)
   headlineImage String?
   headlineTitle String?
