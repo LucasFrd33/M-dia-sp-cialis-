@@ -8,34 +8,53 @@ function CreateArticlesForm() {
   const { register, handleSubmit, reset } = useForm();
   const router = useRouter();
 
-  function onSubmit(data) {
-    const miniatureArticle = data.miniatureArticle[0];
-    const media = data.media[0];
+  async function onSubmit(data) {
+    try {
+      const miniatureArticle = data.miniatureArticle[0];
+      const media = data.media[0];
 
-    const reader = new FileReader();
+      // Fonction pour lire un fichier comme DataURL
+      const readFileAsDataURL = (file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (event) => resolve(event.target.result.split(",")[1]);
+          reader.onerror = (error) => reject(error);
+          reader.readAsDataURL(file);
+        });
+      };
 
-    reader.onload = (event) => {
-      const base64String = event.target.result.split(",")[1];
+      // Lecture des fichiers
+      const [media64, miniatureArticle64] = await Promise.all([
+        readFileAsDataURL(media),
+        readFileAsDataURL(miniatureArticle),
+      ]);
 
-      data.media = base64String;
-      data.miniatureArticle = base64String;
+      // Mise à jour des données avec les nouvelles valeurs encodées en base64
+      data.media = media64;
+      data.miniatureArticle = miniatureArticle64;
 
-      fetch("/api/article", {
+      // Envoi des données au serveur
+      const response = await fetch("/api/article", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          reset();
-          router.refresh();
-        })
-        .catch((error) => console.error("Error:", error));
-    };
+      });
 
-    reader.readAsDataURL(miniatureArticle, media);
+      // Vérification de la réponse
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const responseData = await response.json();
+
+      // Reset et refresh (assure-toi que ces fonctions existent et sont définies)
+      reset();
+      router.refresh();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   return (
