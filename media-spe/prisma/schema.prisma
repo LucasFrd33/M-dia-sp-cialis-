@@ -8,16 +8,23 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  name     String?
+  id       Int    @id @default(autoincrement())
+  name     String
   password String
   role     String
+  email    String @unique
 }
 
 model Articles {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String
-  published Boolean @default(false)
-  file      String
+  id               Int      @id @default(autoincrement())
+  title            String
+  published        Boolean  @default(false)
+  date             DateTime
+  headlineImage    String?
+  headlineTitle    String?
+  isHeadline       Boolean  @default(false)
+  media            String
+  miniatureArticle String
+  source           String
+  type             String
 }
