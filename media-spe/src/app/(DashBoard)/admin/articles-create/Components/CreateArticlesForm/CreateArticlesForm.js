@@ -2,17 +2,23 @@
 
 import { useForm } from "react-hook-form";
 import style from "./createArticlesForm.module.scss";
+import { useRouter } from "next/navigation";
 
 function CreateArticlesForm() {
   const { register, handleSubmit, reset } = useForm();
+  const router = useRouter();
 
   function onSubmit(data) {
-    const file = data.file[0];
+    const miniatureArticle = data.miniatureArticle[0];
+    const media = data.media[0];
+
     const reader = new FileReader();
 
     reader.onload = (event) => {
       const base64String = event.target.result.split(",")[1];
-      data.file = base64String;
+
+      data.media = base64String;
+      data.miniatureArticle = base64String;
 
       fetch("/api/article", {
         method: "POST",
@@ -24,11 +30,12 @@ function CreateArticlesForm() {
         .then((response) => response.json())
         .then((data) => {
           reset();
+          router.refresh();
         })
         .catch((error) => console.error("Error:", error));
     };
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(miniatureArticle, media);
   }
 
   return (
@@ -49,18 +56,36 @@ function CreateArticlesForm() {
         <label>
           Contenu de l'article :
           <textarea
-            title="content"
+            title="text"
             placeholder="Contenu de l'article"
-            {...register("content")}
+            {...register("text")}
+          />
+        </label>
+
+        <label>
+          Type de l'article :
+          <textarea
+            title="type"
+            placeholder="Contenu de l'article"
+            {...register("type")}
+          />
+        </label>
+
+        <label>
+          Miniature de l'article :
+          <input
+            title="miniatureArticle"
+            type="file"
+            {...register("miniatureArticle")}
           />
         </label>
 
         <label>
           Importation du média (video, audio, image) :
-          <input title="file" type="file" {...register("file")} />
+          <input title="media" type="file" {...register("media")} />
         </label>
 
-        <button type="submit">Save</button>
+        <button type="submit">Créer</button>
       </form>
     </div>
   );

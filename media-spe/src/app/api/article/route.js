@@ -6,11 +6,13 @@ export async function POST(data) {
   const article = await prisma.articles.create({
     data: {
       title: body.title,
-      content: body.content,
-      file: body.file,
+      text: body.text,
+      type: body.type,
+      media: body.media,
+      miniatureArticle: body.miniatureArticle,
     },
   });
 
-  const { title, content, file, ...rest } = article;
+  const { title, content, media, type, text, ...rest } = article;
   return NextResponse.json(rest);
 }
