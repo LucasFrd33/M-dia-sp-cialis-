@@ -1,0 +1,19 @@
+.playlistDisplay{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+
+    .titles{
+        .sectionTitle{
+            margin: 0;
+        }
+
+        .type{
+            margin: 0;
+        }
+    }
+
+    .miniature{
+        width: 100px;
+    }
+}
