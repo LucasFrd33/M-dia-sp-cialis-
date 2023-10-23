@@ -1,0 +1,20 @@
+.login{
+    font-family:  var(--font-poppins);
+    margin: 0px;
+    .loginContainer{
+        max-width: 700px;
+        max-height: 100vh;
+        background-color: red;
+        margin: auto;   
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .loginInput{
+            input{
+                width: 300px;
+                max-width: 700px;
+            }
+        }
+    }
+}

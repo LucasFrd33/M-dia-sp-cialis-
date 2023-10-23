@@ -14,5 +14,26 @@ export async function POST(data) {
   });
 
   const { title, content, media, type, text, ...rest } = article;
-  return NextResponse.json(rest);
+  return NextResponse.json(article);
+}
+
+export async function PATCH(data) {
+  const body = await data.json();
+  const articleId = body.id;
+
+  const article = await prisma.articles.update({
+    where: {
+      id: parseInt(articleId),
+    },
+    data: {
+      title: body.title,
+      text: body.text,
+      type: body.type,
+      media: body.media,
+      miniatureArticle: body.miniatureArticle,
+    },
+  });
+
+  const { title, content, media, type, text, ...rest } = article;
+  return NextResponse.json(article);
 }
