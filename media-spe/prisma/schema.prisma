@@ -10,10 +10,6 @@ datasource db {
 model User {
   id       Int    @id @default(autoincrement())
   name     String
-<<<<<<< HEAD
-=======
-  email    String @unique
->>>>>>> c7d0f1659918aacb6633bcf78f05e6f4e92e480c
   password String
   role     String
   email    String @unique
@@ -22,17 +18,6 @@ model User {
 model Articles {
   id               Int      @id @default(autoincrement())
   title            String
-<<<<<<< HEAD
-  published        Boolean  @default(false)
-  date             DateTime
-  headlineImage    String?
-  headlineTitle    String?
-  isHeadline       Boolean  @default(false)
-  media            String
-  miniatureArticle String
-  source           String
-  type             String
-=======
   text             String
   media            String
   miniatureArticle String
@@ -43,5 +28,4 @@ model Articles {
   headlineTitle    String?
   type             String
   published        Boolean  @default(false)
->>>>>>> c7d0f1659918aacb6633bcf78f05e6f4e92e480c
 }
