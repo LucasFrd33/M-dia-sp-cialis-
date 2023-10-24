@@ -1,52 +1,61 @@
 "use client"
-import React, { Component } from 'react';
-import './carrousel.module.scss'; // Assurez-vous d'avoir un fichier CSS pour les styles du carrousel.
 
-class Carousel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [ // Remplacez ces éléments par les vôtres
-        { id: 1, imageUrl: "../Carrousel/39a84fc9ac30203da2d2dcbf1f746cb5.jpeg", caption: "Belle vue" },
-        { id: 2, imageUrl: "image2.jpg", caption: "Moment de détente" },
-        { id: 3, imageUrl: "image3.jpg", caption: "Exploration urbaine" },
-      ],
-      currentIndex: 0,
-    };
-  }
+import React, { useState, useRef } from 'react';
+import style from '../Carrousel/carrousel.module.scss'
 
-  nextSlide = () => {
-    const { currentIndex, items } = this.state;
-    if (currentIndex < items.length - 1) {
-      this.setState({ currentIndex: currentIndex + 1 });
+const Carousel = ({ items }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [startX, setStartX] = useState(0);
+  const carouselRef = useRef(null);
+
+  const nextSlide = () => {
+    setCurrentIndex((currentIndex + 1) % items.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((currentIndex - 1 + items.length) % items.length);
+  };
+
+  const handlePointerDown = (e) => {
+    setStartX(e.clientX);
+    carouselRef.current.setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerMove = (e) => {
+    if (!carouselRef.current.hasPointerCapture(e.pointerId)) return;
+    if (e.clientX - startX > 10) {
+      prevSlide();
+      carouselRef.current.releasePointerCapture(e.pointerId);
+    } else if (e.clientX - startX < 10) {
+      nextSlide();
+      carouselRef.current.releasePointerCapture(e.pointerId);
     }
   };
 
-  prevSlide = () => {
-    const { currentIndex } = this.state;
-    if (currentIndex > 0) {
-      this.setState({ currentIndex: currentIndex - 1 });
-    }
-  };
-
-  render() {
-    const { items, currentIndex } = this.state;
-
-    return (
-      <div className="carousel">
-        <div className="carousel-inner" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-          {items.map((item) => (
-            <div key={item.id} className="carousel-item">
-              <img src={item.imageUrl} alt={item.caption} />
-              <div className="caption">{item.caption}</div>
-            </div>
+  return (
+    <div className={style['carousel-wrapper']}>
+      <div
+        className={style.carousel}
+        ref={carouselRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+      >
+        <button className={style['carousel__button--prev']} onClick={prevSlide}>←</button>
+        <div className={style.carousel__item}>{items[currentIndex]}</div>
+        <button className={style['carousel__button--next']} onClick={nextSlide}>→</button>
+        <div className={style.carousel__indicator}>
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className={`${style.carousel__indicator__dot} ${index === currentIndex ? style['carousel__indicator__dot--active'] : ''}`}
+            />
           ))}
         </div>
-        <button className="prev-button" onClick={this.prevSlide}>Précédent</button>
-        <button className="next-button" onClick={this.nextSlide}>Suivant</button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Carousel;
+
+
