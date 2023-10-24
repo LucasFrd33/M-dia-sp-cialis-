@@ -10,3 +10,5 @@ export async function DELETE(req, { params }) {
   });
   return NextResponse.json(article);
 }
+
+
