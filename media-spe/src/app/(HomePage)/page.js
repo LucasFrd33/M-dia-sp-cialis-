@@ -1,6 +1,7 @@
 import Articles from "./Components/Articles/Articles";
 import prisma from "@/utils/prisma";
 import PlaylistDisplay from "./Components/PlaylistDisplay/PlaylistDisplay";
+import Reader from "./Components/Reader/Reader";
 
 export default async function HomePage() {
   // const articles = await prisma.articles.findMany();
@@ -61,6 +62,8 @@ export default async function HomePage() {
       <PlaylistDisplay lastArt={lastShort}/>
       <PlaylistDisplay lastArt={lastVideo}/>
       <PlaylistDisplay lastArt={lastArticle}/>
+      <Reader currentArticle={lastPodcast}/>
+
       {/* {articles.map((articles) => (
         <Articles articles={articles} />
       ))*/}

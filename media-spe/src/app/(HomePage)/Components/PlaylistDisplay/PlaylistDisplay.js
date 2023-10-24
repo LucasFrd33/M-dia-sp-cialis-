@@ -1,7 +1,6 @@
-import React from 'react'
 import style from './playlistDisplay.module.scss'
 
-function PlaylistDisplay({ lastArt }) {
+async function PlaylistDisplay({ lastArt }) {
   const artType = lastArt.type;
   const artMiniature = lastArt.miniatureArticle;
 
@@ -13,7 +12,6 @@ function PlaylistDisplay({ lastArt }) {
       </section>
 
       <img className={style.miniature} src={`data:image/jpeg;base64,${artMiniature}`} />
-
       <button className={style.button}>Lire les {artType}</button>
     </div>
   )
