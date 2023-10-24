@@ -1,7 +1,17 @@
-import React from "react";
+import prisma from "@/utils/prisma";
+import PatchArticleForm from "./components/PatchArticleForm";
+import style from "./Style/PatchArticleForm.module.scss";
 
-function ArticlePatchPage() {
-  return <div>ArticlePatchPage</div>;
+export default async function ArticlePatchPage({ params }) {
+  const idArticles = parseInt(params.id);
+  const articles = await prisma.articles.findUnique({
+    where: {
+      id: idArticles,
+    },
+  });
+  return (
+    <div className={style.formPatchArticles}>
+      {<PatchArticleForm articles={articles} />}
+    </div>
+  );
 }
-
-export default ArticlePatchPage;

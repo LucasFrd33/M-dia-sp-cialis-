@@ -23,10 +23,10 @@ const Carousel = ({ items }) => {
 
   const handlePointerMove = (e) => {
     if (!carouselRef.current.hasPointerCapture(e.pointerId)) return;
-    if (e.clientX - startX > 10) {
+    if (e.clientX - startX > 100) {
       prevSlide();
       carouselRef.current.releasePointerCapture(e.pointerId);
-    } else if (e.clientX - startX < 10) {
+    } else if (e.clientX - startX < 100) {
       nextSlide();
       carouselRef.current.releasePointerCapture(e.pointerId);
     }

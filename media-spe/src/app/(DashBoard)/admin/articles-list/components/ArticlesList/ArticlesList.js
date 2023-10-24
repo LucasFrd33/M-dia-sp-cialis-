@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import style from "./ArticlesList.module.scss";
 import { useRouter } from "next/navigation";
 
@@ -24,6 +25,7 @@ function ArticlesList({ data }) {
     <div className={style.list}>
       <h3>{data.title}</h3>
       <button onClick={onDelete}>Supprimer</button>
+      <Link href={`/admin/articles-patch/${data.id}`}>Modifier</Link>
     </div>
   );
 }
