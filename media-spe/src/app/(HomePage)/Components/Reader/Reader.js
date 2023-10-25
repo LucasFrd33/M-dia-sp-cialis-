@@ -33,11 +33,12 @@ function Reader({ currentArticle , emitClickEvent}) {
       }
 
     return (
-        <div className={(readedArticle.type == "podcast" ? `${style.reader} ${style.podcast}` : (readedArticle.type == "short" ? `${style.reader} ${style.short}` : (readedArticle.type == "video" ? `${style.reader} ${style.video}` : `${style.reader} ${style.article}`)))}>
+        <div className={(readedArticle.type == "podcast" && `${style.reader} ${style.podcast}` || readedArticle.type == "short" && `${style.reader} ${style.short}` || readedArticle.type == "video" && `${style.reader} ${style.video}` || `${style.reader} ${style.article}`)}>
 
             <img className={style.miniature} src={`data:image/jpeg;base64,${miniature}`} />
             <h1>{readedArticle.title}</h1>
             <audio className={style.audio} controls src={`data:audio/mp3;base64,${readedArticle.media}`}/>
+            <video className={style.videoMedia} controls src={`data:video/mp4;base64,${readedArticle.media}`}/>
             <button onClick={() => setCount(loadArticles(readedArticle, "next"))}>Next</button>
             <button onClick={() => setCount(loadArticles(readedArticle, "previous"))}>Previous</button>
             <button onClick={handleClick}>send</button>

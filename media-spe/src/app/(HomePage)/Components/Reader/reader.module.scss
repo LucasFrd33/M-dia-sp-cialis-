@@ -9,16 +9,60 @@
     flex-direction: column;   
     align-items: center;
 
-    :not(.podcast){
-        .audio{
-            display: none;
-        }
-        .miniature{
-            display: none;
-        }
-    }
-
     .miniature{
         width: 15rem;
     }
 }
+
+.podcast{    
+    .audio{
+        display: block;
+    }
+
+    .miniature{
+        display: block;
+    }
+
+    .videoMedia{
+        display: none;
+    }
+}
+
+.video{
+    .videoMedia{
+        display: block;
+    }
+
+    .audio{
+        display: none;
+    }
+    .miniature{
+        display: none;
+    }
+}
+
+.short{
+    .videoMedia{
+        display: block;
+    }
+
+    .audio{
+        display: none;
+    }
+    .miniature{
+        display: none;
+    }
+}
+
+.article{
+    .audio{
+        display: none;
+    }
+    .miniature{
+        display: none;
+    }
+    .videoMedia{
+        display: none;
+    }
+}
+
