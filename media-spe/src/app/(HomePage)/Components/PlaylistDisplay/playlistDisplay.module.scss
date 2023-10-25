@@ -1,19 +1,236 @@
-.playlistDisplay{
+.playlistDisplay {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-bottom: 5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 
-    .titles{
-        .sectionTitle{
+    svg{
+        position: absolute;
+        top: -5rem;
+        left: -3rem;
+        width: 130%;
+        z-index: -1;
+    }
+
+    .titles {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3125rem;
+        margin-bottom: 1rem;
+
+        color: var(--light-1, #FAFAFA);
+
+
+        .sectionTitle {
             margin: 0;
+            font-size: 2rem;
         }
 
-        .type{
+        .type {
+            display: flex;
+            padding: 0.3125rem 0.625rem;
+            justify-content: center;
+            align-items: center;
+            gap: 0.625rem;
+            border-radius: 0.3125rem;
+
+            h3 {
+                margin: 0;
+                color: #FAFAFA;
+                font-family: Inter;
+                font-size: 0.9375rem;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                text-transform: uppercase;
+
+            }
+        }
+    }
+
+    .main {
+        color: var(--light-1, #FAFAFA);
+        font-family: Inter;
+        font-size: 1.125rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+
+        .description {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.1rem;
+            width: fit-content;
+
+            button {
+                display: inline-flex;
+                padding: 0.5rem 0.9375rem;
+                justify-content: center;
+                align-items: center;
+                gap: 0.625rem;
+
+                border-radius: 0.4375rem;
+
+
+                color: var(--light-1, #FAFAFA);
+                font-family: Inter;
+                font-size: 1.07rem;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+            }
+        }
+
+        .miniature {
+            width: 9.25rem;
+            flex-shrink: 0;
+
+            border-radius: 0.625rem;
+        }
+
+
+        h2 {
+            font-family: Inter;
+            font-size: 1.125rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
             margin: 0;
         }
     }
 
-    .miniature{
-        width: 100px;
+
+}
+
+.podcast {
+
+    svg{
+        display: none;
+    }
+
+    .titles {
+        .type {
+            background-color: #AC8AF4;
+        }
+    }
+
+    .main {
+        h2 {
+            display: block;
+        }
+
+        .miniature {
+            border: 4px solid var(--primary-1, #8664CE);
+        }
+
+        .description{
+            button{
+                background: var(--primary-1, #8664CE);
+
+            }
+        }
+    }
+}
+
+.short {
+
+    .titles {
+        .type {
+            background-color: #FF9D5C;
+        }
+    }
+
+    .main {
+        h2 {
+            display: none;
+        }
+
+        .miniature {
+            border: 3px solid var(--secondary-2, #FF8F44);
+            aspect-ratio: 9 / 16;
+            width: 9.33119rem;
+
+        }
+
+        .description{
+            button{
+                background: var(--primary-1, #FF8F44);
+            }
+
+            flex-direction: row-reverse;
+        }
+
+    }
+}
+
+.video {
+
+    svg{
+        path{
+            fill: #2E2E2E
+        }
+    }
+
+    .titles {
+        .type {
+            background-color: #6591E6;
+        }
+    }
+
+    .main {
+
+        display: flex;
+        justify-content: center;
+        
+        h2 {
+            display: none;
+        }
+
+        .miniature {
+            width: 17.65156rem;
+
+            border: 3px solid var(--secondary-1, #4F81E3);
+            aspect-ratio: 16 / 9;
+
+        }
+
+        .description{
+            button{
+                background: var(--primary-1, #4F81E3);
+
+            }
+
+            flex-direction: column;
+        }
+    }
+}
+
+.article {
+
+    .titles {
+        .type {
+            background-color: #EDEDED;
+
+            h3 {
+                color: #191919;
+            }
+        }
+    }
+
+    .main {
+        h2 {
+            display: none;
+        }
+
+        .description{
+            button{
+                background: var(--primary-1, #EDEDED);
+
+            }
+        }
     }
 }
