@@ -5,13 +5,13 @@ export async function GET(req, { params }) {
 
   const articleId = params.id;
   const action = params.action;
-  const loadType = params.loadType;
+  const type = params.type;
 
   switch (action) {
     case "next":
       const nextArticle = await prisma.articles.findFirst({
         where: {
-          type: "podcast",
+          type: type,
           id: {
             lt: parseInt(articleId),
           },
@@ -27,7 +27,7 @@ export async function GET(req, { params }) {
     case "previous":
       const previousArticle = await prisma.articles.findFirst({
         where: {
-          type: "podcast",
+          type: type,
           id: {
             gt: parseInt(articleId),
           },
@@ -41,4 +41,3 @@ export async function GET(req, { params }) {
       break;
   }
 }
-
