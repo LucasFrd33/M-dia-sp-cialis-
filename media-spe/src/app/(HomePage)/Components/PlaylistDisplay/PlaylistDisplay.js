@@ -1,9 +1,19 @@
-import React from 'react'
+'use client'
+
 import style from './playlistDisplay.module.scss'
+import { useState } from 'react';
+import Reader from '../Reader/Reader';
 
 function PlaylistDisplay({ lastArt }) {
   const artType = lastArt.type;
   const artMiniature = lastArt.miniatureArticle;
+
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  function handleClickEvent(event, data) {
+    // click event object, 'Hello from child'
+    setIsPlaying(false);
+  }
 
   return (
     <div className={style.playlistDisplay}>
@@ -13,8 +23,12 @@ function PlaylistDisplay({ lastArt }) {
       </section>
 
       <img className={style.miniature} src={`data:image/jpeg;base64,${artMiniature}`} />
+      <button className={style.button} onClick={() => setIsPlaying(true)}>Lire les {artType}</button>
 
-      <button className={style.button}>Lire les {artType}</button>
+      
+      {(isPlaying ? <Reader emitClickEvent={handleClickEvent} currentArticle={lastArt}/> : null)}
+      
+
     </div>
   )
 }
