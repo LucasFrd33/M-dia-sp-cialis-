@@ -5,13 +5,16 @@ import style from "./createArticlesForm.module.scss";
 import { useRouter } from "next/navigation";
 
 function CreateArticlesForm() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, watch } = useForm();
+  const carouselArticle = watch("type", "article");
+  const articleIsHeadline = watch("isHeadline", false);
   const router = useRouter();
 
   async function onSubmit(data) {
     try {
       const miniatureArticle = data.miniatureArticle[0];
       const media = data.media[0];
+      const headlineImage = data.headlineImage[0];
 
       // Fonction pour lire un fichier comme DataURL
       const readFileAsDataURL = (file) => {
@@ -24,14 +27,16 @@ function CreateArticlesForm() {
       };
 
       // Lecture des fichiers
-      const [media64, miniatureArticle64] = await Promise.all([
+      const [media64, miniatureArticle64, headlineImage64] = await Promise.all([
         readFileAsDataURL(media),
         readFileAsDataURL(miniatureArticle),
+        readFileAsDataURL(headlineImage),
       ]);
 
       // Mise à jour des données avec les nouvelles valeurs encodées en base64
       data.media = media64;
       data.miniatureArticle = miniatureArticle64;
+      data.headlineImage = headlineImage64;
 
       // Envoi des données au serveur
       const response = await fetch("/api/article", {
@@ -83,12 +88,46 @@ function CreateArticlesForm() {
 
         <label>
           Type de l'article :
-          <textarea
-            title="type"
-            placeholder="Contenu de l'article"
-            {...register("type")}
-          />
+          <select {...register("type")}>
+            <option value="article">Article</option>
+            <option value="video">Vidéo</option>
+            <option value="shorts">Vidéo courte</option>
+            <option value="podcast">Podcast</option>
+          </select>
         </label>
+
+        {carouselArticle === "article" && (
+          <div>
+            <label>
+              Afficher l'article sur le carousel ? :
+              <input
+                type="checkbox"
+                placeholder="isHeadline"
+                {...register("isHeadline")}
+              />
+            </label>
+            {articleIsHeadline && (
+              <div>
+                <label>
+                  Texte du carousel :
+                  <textarea
+                    title="headlineTitle"
+                    placeholder="Le titre de l'article"
+                    {...register("headlineTitle")}
+                  />
+                </label>
+                <label>
+                  Image du carousel :
+                  <input
+                    title="headlineImage"
+                    type="file"
+                    {...register("headlineImage")}
+                  />
+                </label>
+              </div>
+            )}
+          </div>
+        )}
 
         <label>
           Miniature de l'article :

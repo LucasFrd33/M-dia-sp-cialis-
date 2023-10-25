@@ -15,7 +15,7 @@ export const metadata = {
 export default function MainLayout({ children }) {
   return (
     <html lang="fr">
-      <body className={poppins.variable}>
+      <body className={`${poppins.variable} ${style.containerHome}`}>
         <main className={style.home}>{children}</main>
       </body>
     </html>

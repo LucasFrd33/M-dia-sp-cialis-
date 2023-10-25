@@ -1,12 +1,12 @@
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import styles from "./styles/dashboard.module.scss";
 import "../styles/globals.css";
 import Header from "./Components/Header/Header";
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
+  variable: "--font-inter",
 });
 
 export const metadata = {
@@ -17,7 +17,7 @@ export const metadata = {
 export default function DashBoardLayout({ children }) {
   return (
     <html lang="fr">
-      <body className={`${poppins.variable} ${styles.main}`}>
+      <body className={`${inter.variable} ${styles.main}`}>
         <main className={`${styles.admin}`}>
           <Header />
           {children}

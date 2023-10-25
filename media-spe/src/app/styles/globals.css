@@ -10,3 +10,7 @@
 .labelStyle {
     @apply mb-1 mt-4 w-fit;
 }
+
+body{
+    margin: 0px;
+}
