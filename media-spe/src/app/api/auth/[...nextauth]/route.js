@@ -1,34 +1,80 @@
-import NextAuth from "next-auth/next";
+import prisma from "@/utils/prisma";
+import { compare } from "bcrypt";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     CredentialsProvider({
-      name: "Pozz",
+      name: "Sign in",
       credentials: {
-        name: {
-          label: "Nom d'utilisateur :",
-          type: "text",
-          placeholder: "Entrer votre nom d'utilisateur",
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "hello@example.com",
         },
-        password: { label: "Mot de passe :", type: "password" },
+        password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        const res = await fetch("/api/login", {
-          method: "POST",
-          body: JSON.stringify({
-            name: credentials?.name,
-            password: credentials?.password,
-          }),
-          headers: { "Content-Type": "application/json" },
-        });
-        const user = await res.json();
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials.password) {
+          return null;
+        }
 
-        return user || null;
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user) {
+          return null;
+        }
+
+        const isPasswordValid = await compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!isPasswordValid) {
+          return null;
+        }
+
+        return {
+          id: user.id + "",
+          email: user.email,
+          name: user.name,
+          randomKey: "5aT29k3Bxu9BiS",
+        };
       },
     }),
   ],
+  callbacks: {
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
+        },
+      };
+    },
+    jwt: ({ token, user }) => {
+      if (user) {
+        const u = user;
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        };
+      }
+      return token;
+    },
+  },
 };
-export { handler as GET, handler as POST };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
