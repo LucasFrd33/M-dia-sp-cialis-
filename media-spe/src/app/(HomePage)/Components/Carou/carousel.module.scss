@@ -1,5 +1,54 @@
-// .carousel{
-//     width: 100%;
-//     height: 100vh;
-//     margin: 5%;
-// }
+.carousel{
+    overflow: auto;
+    width: 390px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    .containerCardCarou{
+        width: fit-content;
+        margin-left: 0.7em;
+        margin-right: 0.7em;
+        display: flex;
+        justify-content: center;
+        .backgroundCard{
+            height: 100vh;
+            width: 90vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cardCarou{
+            margin: 19px 9.5px 19px 9.5px;
+            background-color: red;
+            width: 20.5625rem;
+            height: 21.5625rem; 
+            position: relative;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .textCarouContainer{
+                background-color: blue;
+                width: 270px;
+                height: 193px;
+                position: absolute;
+                left: 50%;
+                top: 13.5rem;
+                transform: translate(-50%, 0);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                button{
+                    margin: 5%;
+                }
+                .textCarou{
+                    height: 100%;
+                    overflow: hidden;
+                    word-wrap: break-word;
+                    margin: 5%;
+                }
+            }
+        }
+    }
+}
