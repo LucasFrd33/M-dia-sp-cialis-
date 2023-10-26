@@ -64,7 +64,7 @@ function Reader({ currentArticle, emitClickEvent }) {
                 <audio className={style.audio} autoplay controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
 
 
-
+                
 
 
                 <section className={style.buttons}>
