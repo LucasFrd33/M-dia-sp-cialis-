@@ -24,7 +24,20 @@ export default async function HomePage() {
   //     controls
   //   />,
   // ];
+  const today = new Date();
+  let millisecondsInADay = 24 * 60 * 60 * 1000;
+  let yesterdayMilliseconds = today.getTime() - millisecondsInADay;
+  let yesterdayDate = new Date(yesterdayMilliseconds);
 
+  const carouselArticles = await prisma.articles.findMany({
+    where: {
+      isHeadline: true,
+      date: {
+        lt: today,
+        gt: yesterdayDate,
+      },
+    },
+  });
   // const articles = await prisma.articles.findMany();
 
   // const lastPodcast = await prisma.articles.findFirst({
@@ -72,7 +85,7 @@ export default async function HomePage() {
       {/* <Carousel items={items} />
       <br />
       <br /> */}
-      <Carou />
+      <Carou carouselArticles={carouselArticles} />
       {/* <PlaylistDisplay lastArt={lastPodcast} />
       <PlaylistDisplay lastArt={lastShort} />
       <PlaylistDisplay lastArt={lastVideo} />
