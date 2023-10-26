@@ -1,4 +1,4 @@
-.reader{
+.reader {
     overflow: hidden;
     position: fixed;
     top: 0;
@@ -6,89 +6,195 @@
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;   
+    flex-direction: column;
     align-items: center;
 
-    background-size: cover;
-    background-position: center;
+
 
     z-index: 5;
 
-    .close{
+    button {
+        background: none;
+        border: none;
+    }
+
+    .content {
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+    }
+
+    .close {
         position: absolute;
         top: 1.94rem;
         left: 1.94rem;
     }
 
-    .miniature{
+    .miniature {
         width: 15rem;
     }
 }
 
-.podcast{    
-    .audio{
-        display: block;
-        
-    }
-    audio::-webkit-media-controls-play-button {
-        path{
-            fill: red;
+.podcast {
+
+    .content {
+        margin-top: 9.37rem;
+
+        h1 {
+            color: #FFF;
+            font-family: Inter;
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            text-transform: capitalize;
+        }
+
+        .audio {
+            display: block;
+
+        }
+
+        .miniature {
+            display: block;
+            border-radius: 0.625rem;
+
+        }
+
+        .buttons {
+            display: flex;
+
+            .play {
+                path {
+                    fill: transparent;
+                }
+            }
+        }
+
+        .videoMedia {
+            display: none;
         }
     }
 
-    audio::-webkit-media-controls-panel{
-        background-color: white;
+    audio {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
     }
 
-    audio::-webkit-media-controls-mute-button{
+    audio {
+        width: 20rem;
+    }
+
+    audio::-webkit-media-controls-timeline {
+        color: white;
+    }
+
+    audio::-webkit-media-controls-enclosure {
+        max-width: none
+    }
+
+    audio::-webkit-media-controls-panel {
+        background-color: transparent;
+    }
+
+    audio::-webkit-media-controls-mute-button {
+        display: none;
+    }
+
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
         display: none;
     }
 
 
-    .miniature{
-        display: block;
+
+}
+
+.video {
+
+    .content {
+
+        .videoMedia {
+            display: block;
+        }
+
+        .audio {
+            display: none;
+        }
+
+        .miniature {
+            display: none;
+        }
     }
 
-    .videoMedia{
-        display: none;
+}
+
+.short {
+    .content {
+        align-items: baseline;
+        position: relative;
+
+        .close {
+            path {
+                fill: #FF8F44;
+            }
+        }
+
+
+        .videoMedia {
+            display: block;
+            z-index: -1;
+            width: 100vw;
+            top: 0;
+            left: 0;
+            background-color: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 69.17%, rgba(0, 0, 0, 0.65) 86.87%)
+        }
+
+        h1 {
+            margin: 0;
+            position: relative;
+            bottom: 7rem;
+            padding-left: 1.1rem;
+        }
+
+        .buttons {
+            align-self: center;
+            position: relative;
+            bottom: 3rem;
+
+            .play {
+                path {
+                    fill: transparent
+                }
+            }
+        }
+
+        .audio {
+            display: none;
+        }
+
+        .miniature {
+            display: none;
+        }
     }
 }
 
-.video{
-    .videoMedia{
-        display: block;
-    }
-
-    .audio{
+.article {
+    .audio {
         display: none;
     }
-    .miniature{
+
+    .miniature {
+        display: none;
+    }
+
+    .videoMedia {
         display: none;
     }
 }
-
-.short{
-    .videoMedia{
-        display: block;
-    }
-
-    .audio{
-        display: none;
-    }
-    .miniature{
-        display: none;
-    }
-}
-
-.article{
-    .audio{
-        display: none;
-    }
-    .miniature{
-        display: none;
-    }
-    .videoMedia{
-        display: none;
-    }
-}
-
