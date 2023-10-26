@@ -1,10 +1,10 @@
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import style from "./Styles/Homepage.module.scss";
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
+  variable: "--font-inter",
 });
 
 export const metadata = {
@@ -15,7 +15,7 @@ export const metadata = {
 export default function MainLayout({ children }) {
   return (
     <html lang="fr">
-      <body className={`${poppins.variable} ${style.containerHome}`}>
+      <body className={`${inter.variable} ${style.containerHome}`}>
         <main className={style.home}>{children}</main>
       </body>
     </html>

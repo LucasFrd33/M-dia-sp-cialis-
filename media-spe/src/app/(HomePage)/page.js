@@ -40,45 +40,45 @@ export default async function HomePage() {
   });
   // const articles = await prisma.articles.findMany();
 
-  // const lastPodcast = await prisma.articles.findFirst({
-  //   where: {
-  //     type: "podcast",
-  //   },
-  //   orderBy: {
-  //     id: "desc",
-  //   },
-  //   take: 1,
-  // });
+  const lastPodcast = await prisma.articles.findFirst({
+    where: {
+      type: "podcast",
+    },
+    orderBy: {
+      id: "desc",
+    },
+    take: 1,
+  });
 
-  // const lastShort = await prisma.articles.findFirst({
-  //   where: {
-  //     type: "short",
-  //   },
-  //   orderBy: {
-  //     id: "desc",
-  //   },
-  //   take: 1,
-  // });
+  const lastShort = await prisma.articles.findFirst({
+    where: {
+      type: "short",
+    },
+    orderBy: {
+      id: "desc",
+    },
+    take: 1,
+  });
 
-  // const lastVideo = await prisma.articles.findFirst({
-  //   where: {
-  //     type: "video",
-  //   },
-  //   orderBy: {
-  //     id: "desc",
-  //   },
-  //   take: 1,
-  // });
+  const lastVideo = await prisma.articles.findFirst({
+    where: {
+      type: "video",
+    },
+    orderBy: {
+      id: "desc",
+    },
+    take: 1,
+  });
 
-  // const lastArticle = await prisma.articles.findFirst({
-  //   where: {
-  //     type: "article",
-  //   },
-  //   orderBy: {
-  //     id: "desc",
-  //   },
-  //   take: 1,
-  // });
+  const lastArticle = await prisma.articles.findFirst({
+    where: {
+      type: "article",
+    },
+    orderBy: {
+      id: "desc",
+    },
+    take: 1,
+  });
 
   return (
     <>
@@ -89,7 +89,7 @@ export default async function HomePage() {
       {/* <PlaylistDisplay lastArt={lastPodcast} />
       <PlaylistDisplay lastArt={lastShort} />
       <PlaylistDisplay lastArt={lastVideo} />
-      <PlaylistDisplay lastArt={lastArticle} /> */}
+      {/* <PlaylistDisplay lastArt={lastArticle} /> */}
     </>
   );
 }
