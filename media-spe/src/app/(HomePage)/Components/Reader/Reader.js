@@ -3,14 +3,21 @@
 import React from 'react'
 import style from './reader.module.scss'
 import { useState } from 'react';
-import { get } from 'react-hook-form';
+import { get, set } from 'react-hook-form';
 
 
-async function getData(articleId, action, articleType) {
+async function getFullArticle(articleId, action, articleType) {
     const res = await fetch(`/api/article/${articleId}/${action}/${articleType}`, {
         method: "GET",
     });
     return res.json()
+}
+
+async function getWaitlistArticle(articleType, articleId) {
+    const results = await fetch(`/api/waitList/${articleType}/${articleId}`, {
+        method: "GET",
+    });
+    return results.json()
 }
 
 
@@ -19,6 +26,7 @@ function Reader({ currentArticle, emitClickEvent }) {
     const [count, setCount] = useState(0);
     const [miniature, setMiniature] = useState(currentArticle.miniatureArticle);
     const [readedArticle, setReadedArticle] = useState(currentArticle);
+    const [waitlist, setWaitlist] = useState([]);
 
     const divStyle = {
         background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.80) 100%), url(data:image/jpeg;base64,' + miniature + ')',
@@ -33,7 +41,7 @@ function Reader({ currentArticle, emitClickEvent }) {
     };
 
     async function loadArticles(readedArticle, action) {
-        const data = await getData(readedArticle.id, action, readedArticle.type);
+        const data = await getFullArticle(readedArticle.id, action, readedArticle.type);
         if (data != null) {
             setReadedArticle(data);
             setMiniature(data.miniatureArticle);
@@ -44,16 +52,22 @@ function Reader({ currentArticle, emitClickEvent }) {
         emitClickEvent(event);
     }
 
+    async function loadWaitlist(articleType) {
+        const data = await getWaitlistArticle(articleType, readedArticle.id);
+        setWaitlist(data);
+        console.log(waitlist)
+    }
+
+    loadWaitlist(readedArticle.type);
+
+
     return (
         <div className={(readedArticle.type == "podcast" && `${style.reader} ${style.podcast}` || readedArticle.type == "short" && `${style.reader} ${style.short}` || readedArticle.type == "video" && `${style.reader} ${style.video}` || `${style.reader} ${style.article}`)}>
-
-            <div style={divStyle}>
-            </div>
 
             <div className={style.content}>
                 <button className={style.close} onClick={handleClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="63" height="40" viewBox="0 0 63 40" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3756 13.4658C18.9003 12.872 19.7792 12.8419 20.3388 13.3986L30.5 23.5063L40.6611 13.3986C41.2209 12.8419 42.0998 12.872 42.6245 13.4658C43.1489 14.0595 43.1206 14.9921 42.5611 15.5488L31.4499 26.6014C30.9157 27.1329 30.0844 27.1329 29.5501 26.6014L18.439 15.5488C17.8794 14.9921 17.851 14.0595 18.3756 13.4658Z" fill="#AC8AF4" />
+                        <path fillRule="evenodd" clipRule="evenodd" d="M18.3756 13.4658C18.9003 12.872 19.7792 12.8419 20.3388 13.3986L30.5 23.5063L40.6611 13.3986C41.2209 12.8419 42.0998 12.872 42.6245 13.4658C43.1489 14.0595 43.1206 14.9921 42.5611 15.5488L31.4499 26.6014C30.9157 27.1329 30.0844 27.1329 29.5501 26.6014L18.439 15.5488C17.8794 14.9921 17.851 14.0595 18.3756 13.4658Z" fill="#AC8AF4" />
                     </svg>
                 </button>
 
@@ -61,10 +75,10 @@ function Reader({ currentArticle, emitClickEvent }) {
                 <video className={style.videoMedia} controls controlsList="nodownload noplaybackrate nopictureinpicture" src={`data:video/mp4;base64,${readedArticle.media}`} />
 
                 <h1>{readedArticle.title}</h1>
-                <audio className={style.audio} autoplay controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
+                <audio className={style.audio} autoPlay controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
 
 
-                
+
 
 
                 <section className={style.buttons}>
@@ -85,6 +99,13 @@ function Reader({ currentArticle, emitClickEvent }) {
                     </button>
                 </section>
             </div>
+
+            <section className={style.waitList}>
+                {waitlist.map((article, index) => (
+                    <h1>{article.title}</h1>
+                ))}
+            </section>
+
         </div>
     )
     //si je suis au premier, pas de previous --> desac bouton
