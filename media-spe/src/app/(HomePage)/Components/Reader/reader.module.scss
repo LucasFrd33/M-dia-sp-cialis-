@@ -1,5 +1,5 @@
 .reader{
-    background-color: white;
+    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
@@ -9,6 +9,17 @@
     flex-direction: column;   
     align-items: center;
 
+    background-size: cover;
+    background-position: center;
+
+    z-index: 5;
+
+    .close{
+        position: absolute;
+        top: 1.94rem;
+        left: 1.94rem;
+    }
+
     .miniature{
         width: 15rem;
     }
@@ -17,7 +28,22 @@
 .podcast{    
     .audio{
         display: block;
+        
     }
+    audio::-webkit-media-controls-play-button {
+        path{
+            fill: red;
+        }
+    }
+
+    audio::-webkit-media-controls-panel{
+        background-color: white;
+    }
+
+    audio::-webkit-media-controls-mute-button{
+        display: none;
+    }
+
 
     .miniature{
         display: block;
