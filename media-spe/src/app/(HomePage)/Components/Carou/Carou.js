@@ -14,12 +14,13 @@ function Carou({ carouselArticles }) {
 
   function incrCurrentSlide() {
     const current = currentCarou;
+    const divi = 100 / carouselArticles.length;
     const maxIncre = carouselArticles.length - 1;
-    const desincSlide = maxIncre * 33;
+    const desincSlide = maxIncre * divi;
     const currentSlide = slide;
     if (current < maxIncre) {
       setCurrentCarou(current + 1);
-      setSlide(currentSlide - 33);
+      setSlide(currentSlide - divi);
     } else {
       setCurrentCarou(0);
       setSlide(currentSlide + desincSlide);
@@ -29,13 +30,14 @@ function Carou({ carouselArticles }) {
 
   function desincCurrentSlide() {
     const current = currentCarou;
+    const divi = 100 / carouselArticles.length;
     const currentSlide = slide;
     const maxDecrement = 0;
     const maxIncre = carouselArticles.length - 1;
-    const desincSlide = maxIncre * 33;
+    const desincSlide = maxIncre * divi;
     if (current > maxDecrement) {
       setCurrentCarou(current - 1);
-      setSlide(currentSlide + 33);
+      setSlide(currentSlide + divi);
     } else {
       setCurrentCarou(carouselArticles.length - 1);
       setSlide(currentSlide - desincSlide);
