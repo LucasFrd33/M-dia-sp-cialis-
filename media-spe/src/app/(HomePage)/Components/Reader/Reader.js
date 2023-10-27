@@ -85,7 +85,7 @@ function Reader({ currentArticle, emitClickEvent }) {
                 <video className={style.videoMedia} controls controlsList="nodownload noplaybackrate nopictureinpicture" src={`data:video/mp4;base64,${readedArticle.media}`} />
 
                 <h1>{readedArticle.title}</h1>
-                <audio className={style.audio} autoPlay controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
+                <audio className={style.audio} controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
 
                 <section className={style.buttons}>
                     <button className={style.previous} onClick={() => setCount(loadArticles(readedArticle, "next"))}>

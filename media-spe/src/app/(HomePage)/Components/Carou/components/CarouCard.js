@@ -3,7 +3,7 @@ import style from "../carousel.module.scss";
 function CarouCard({ article, openViewMore }) {
   return (
     <div className={style.cardCarou}>
-      <img src={`data:image/jpeg;base64,${article.headlineImage}`} />
+      <img src={`data:image/jpeg;base64,${article.miniatureArticle}`} />
       <div className={style.textCarouContainer}>
         <div className={style.textCarou}>
           <h3>{article.title}</h3>

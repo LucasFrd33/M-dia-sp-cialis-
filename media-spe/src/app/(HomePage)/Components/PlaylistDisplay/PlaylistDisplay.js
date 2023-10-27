@@ -15,10 +15,6 @@ function PlaylistDisplay({ lastArt }) {
     setIsPlaying(false);
   }
 
-  function readerAnmi(){
-    
-  }
-
   if(lastArt.type == "video"){
     path = "M-1 58.7034L392 -0.000732422V545.295L-1 603.999V58.7034Z";
   }else{
