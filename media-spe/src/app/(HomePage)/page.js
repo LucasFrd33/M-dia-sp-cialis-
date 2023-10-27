@@ -71,9 +71,7 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* <Carousel items={items} />
-      <br />
-      <br /> */}
+     
       <Carou carouselArticles={carouselArticles} />
       <PlaylistDisplay lastArt={lastPodcast} />
       <PlaylistDisplay lastArt={lastShort} />

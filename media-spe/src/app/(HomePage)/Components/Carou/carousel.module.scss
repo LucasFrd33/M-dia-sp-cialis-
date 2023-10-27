@@ -1,36 +1,51 @@
-.carrousel{
+.carrousel {
     overflow: hidden;
     width: 390px;
     height: 100vh;
     display: flex;
     align-items: center;
     background-size: cover;
-    .blur{
+
+    .blur {
         backdrop-filter: blur(20px);
         height: 100vh;
         width: 100vw;
         position: absolute;
     }
-    .infoCarou{
+
+    .infoCarou {
         width: 100vw;
         height: 100vh;
         position: absolute;
         z-index: 1;
-        .info{
+        background: linear-gradient(1deg, #1b1b1b, transparent);
+
+        .info {
             position: absolute;
             left: 50%;
             bottom: 15%;
             display: flex;
             transform: translate(-50%);
-            p{
+            align-items: center;
+
+            p {
+                background-color: #DEDEDE;
+                width: 0.625rem;
+                height: 0.625rem;
                 margin: 0rem 0.2rem;
+                border-radius: 100%;
+                transition: all 0.2s ease-in-out;
             }
-            .current{
-                color: #191919;
+
+            .current {
+                background-color: #FF8F44;
+                width: 0.9375rem;
+                height: 0.9375rem;
             }
         }
     }
-    .controlCarou{
+
+    .controlCarou {
         width: 90%;
         position: absolute;
         z-index: 4;
@@ -40,7 +55,8 @@
         bottom: 15%;
         left: 50%;
         transform: translateX(-50%);
-        button{
+
+        button {
             background-color: #FF8F44;
             border: none;
             color: white;
@@ -51,33 +67,38 @@
             align-items: center;
             justify-content: center;
         }
-        button:first-child{
+
+        button:first-child {
             transform: rotate(180deg);
         }
     }
-    .containerCardCarou{
+
+    .containerCardCarou {
         width: fit-content;
         margin-left: 1.3em;
         margin-right: 1.3em;
         display: flex;
         justify-content: center;
         z-index: 5;
-        transition: transform 0.4s  ease-in-out;
-        .cardCarou{
+        transition: transform 0.4s ease-in-out;
+
+        .cardCarou {
             border-radius: 0.63rem;
             margin: 19px 9.5px 19px 9.5px;
             background-color: #191919;
             width: 20.5625rem;
-            height: 21.5625rem; 
+            height: 21.5625rem;
             position: relative;
-            img{
+
+            img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 border-radius: 0.63rem;
                 outline: solid 3px #ff8f43;
             }
-            .textCarouContainer{
+
+            .textCarouContainer {
                 background-color: #191919;
                 border-radius: 0.63rem;
                 width: 270px;
@@ -89,10 +110,12 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                button{
+
+                button {
                     margin: 5%;
                 }
-                .textCarou{
+
+                .textCarou {
                     height: 100%;
                     overflow: hidden;
                     word-wrap: break-word;
@@ -103,7 +126,7 @@
     }
 }
 
-.viewMoreOpen{
+.viewMoreOpen {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -111,16 +134,19 @@
     z-index: 6;
     transform: translateY(0%);
     transition: transform 0.5s ease-in-out;
-    button{
+
+    button {
         position: absolute;
         z-index: 99;
     }
-    .viewMoreImageBlur{
+
+    .viewMoreImageBlur {
         height: 20%;
         background-size: cover;
         filter: blur(45px);
     }
-    .viewMoreImage{
+
+    .viewMoreImage {
         position: absolute;
         height: 40%;
         background-size: cover;
@@ -129,21 +155,25 @@
         bottom: 40%;
         width: 100%;
     }
-    .viewMoreText{
+
+    .viewMoreText {
         margin-top: 90%;
         height: 37vh;
         background-color: #191919;
         padding: 2% 5%;
-        h2{
+
+        h2 {
             margin: 0;
         }
-        p{
+
+        p {
             word-break: break-word;
             overflow-y: scroll;
         }
     }
 }
-.viewMoreClose{
+
+.viewMoreClose {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -152,5 +182,3 @@
     transform: translateY(110%);
     transition: transform 0.4s ease-in-out;
 }
-
-
