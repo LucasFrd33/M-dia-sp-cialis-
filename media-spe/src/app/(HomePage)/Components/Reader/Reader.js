@@ -6,15 +6,15 @@ import { useState } from 'react';
 import { get, set } from 'react-hook-form';
 
 
-async function getFullArticle(articleId, action, articleType) {
+async function getFullArticles(articleId, action, articleType) {
     const res = await fetch(`/api/article/${articleId}/${action}/${articleType}`, {
         method: "GET",
     });
     return res.json()
 }
 
-async function getWaitlistArticle(articleType, articleId) {
-    const results = await fetch(`/api/waitList/${articleType}/${articleId}`, {
+async function getWaitlistArticle(articleType, articleId, direction) {
+    const results = await fetch(`/api/waitList/${articleType}/${articleId}/${direction}`, {
         method: "GET",
     });
     return results.json()
@@ -26,7 +26,9 @@ function Reader({ currentArticle, emitClickEvent }) {
     const [count, setCount] = useState(0);
     const [miniature, setMiniature] = useState(currentArticle.miniatureArticle);
     const [readedArticle, setReadedArticle] = useState(currentArticle);
-    const [waitlist, setWaitlist] = useState([]);
+    const [waitlistNext, setWaitlistNext] = useState([]);
+    const [waitlistPrevious, setWaitlistPrevious] = useState([]);
+    const [seeWaitlist, setSeeWaitlist] = useState(false);
 
     const divStyle = {
         background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.80) 100%), url(data:image/jpeg;base64,' + miniature + ')',
@@ -41,10 +43,12 @@ function Reader({ currentArticle, emitClickEvent }) {
     };
 
     async function loadArticles(readedArticle, action) {
-        const data = await getFullArticle(readedArticle.id, action, readedArticle.type);
+        const data = await getFullArticles(readedArticle.id, action, readedArticle.type);
         if (data != null) {
             setReadedArticle(data);
             setMiniature(data.miniatureArticle);
+            loadWaitlist(data.type, data.id, "next");
+            loadWaitlist(data.type, data.id, "previous");
         }
     }
 
@@ -52,17 +56,23 @@ function Reader({ currentArticle, emitClickEvent }) {
         emitClickEvent(event);
     }
 
-    async function loadWaitlist(articleType) {
-        const data = await getWaitlistArticle(articleType, readedArticle.id);
-        setWaitlist(data);
-        console.log(waitlist)
+    async function loadWaitlist(articleType, id, direction) {
+        const data = await getWaitlistArticle(articleType, id, direction);
+        if (direction == "next") {
+            setWaitlistNext(data);
+        } else if (direction == "previous") {
+            setWaitlistPrevious(data);
+        }
     }
 
-    loadWaitlist(readedArticle.type);
+
+
 
 
     return (
         <div className={(readedArticle.type == "podcast" && `${style.reader} ${style.podcast}` || readedArticle.type == "short" && `${style.reader} ${style.short}` || readedArticle.type == "video" && `${style.reader} ${style.video}` || `${style.reader} ${style.article}`)}>
+
+            <div className={style.background} style={divStyle}></div>
 
             <div className={style.content}>
                 <button className={style.close} onClick={handleClick}>
@@ -76,10 +86,6 @@ function Reader({ currentArticle, emitClickEvent }) {
 
                 <h1>{readedArticle.title}</h1>
                 <audio className={style.audio} autoPlay controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
-
-
-
-
 
                 <section className={style.buttons}>
                     <button className={style.previous} onClick={() => setCount(loadArticles(readedArticle, "next"))}>
@@ -100,10 +106,30 @@ function Reader({ currentArticle, emitClickEvent }) {
                 </section>
             </div>
 
-            <section className={style.waitList}>
-                {waitlist.map((article, index) => (
-                    <h1>{article.title}</h1>
-                ))}
+            <section className={(!seeWaitlist ? style.waitList : `${style.waitList} ${style.waitListShown}`)}>
+                <div className={style.title} onClick={() => setSeeWaitlist(!seeWaitlist) + loadWaitlist(readedArticle.type, readedArticle.id, "next") + loadWaitlist(readedArticle.type, readedArticle.id, "previous")}>
+                    <section className={style.handle}></section>
+                    <h1>Votre playlist</h1>
+                </div>
+                <div className={style.waitListElements}>
+                    {waitlistPrevious.map((article, index) => (
+                        <section className={style.waitListElement} key={index}>
+                            <img src={`data:image/jpeg;base64,${article.miniatureArticle}`} />
+                            <h2>{article.title}</h2>
+                        </section>
+
+                    ))}
+                    <section className={`${style.waitListElement} ${style.waitListCurrent}`}>
+                        <img src={`data:image/jpeg;base64,${readedArticle.miniatureArticle}`} />
+                        <h2>{readedArticle.title}</h2>
+                    </section>
+                    {waitlistNext.map((article, index) => (
+                        <section className={style.waitListElement} key={index}>
+                            <img src={`data:image/jpeg;base64,${article.miniatureArticle}`} />
+                            <h2>{article.title}</h2>
+                        </section>
+                    ))}
+                </div>
             </section>
 
         </div>
