@@ -9,8 +9,8 @@
     .background {
         position: absolute;
         top: -8rem;
-        left: -3rem;
-        width: 130%;
+        left: -2rem;
+        width: 100vw;
         z-index: -1;
     }
 
@@ -261,4 +261,8 @@
             }
         }
     }
+}
+
+.hidden{
+    top: 100%;
 }

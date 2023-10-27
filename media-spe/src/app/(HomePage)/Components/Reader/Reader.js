@@ -3,14 +3,21 @@
 import React from 'react'
 import style from './reader.module.scss'
 import { useState } from 'react';
-import { get } from 'react-hook-form';
+import { get, set } from 'react-hook-form';
 
 
-async function getData(articleId, action, articleType) {
+async function getFullArticles(articleId, action, articleType) {
     const res = await fetch(`/api/article/${articleId}/${action}/${articleType}`, {
         method: "GET",
     });
     return res.json()
+}
+
+async function getWaitlistArticle(articleType, articleId, direction) {
+    const results = await fetch(`/api/waitList/${articleType}/${articleId}/${direction}`, {
+        method: "GET",
+    });
+    return results.json()
 }
 
 
@@ -19,6 +26,9 @@ function Reader({ currentArticle, emitClickEvent }) {
     const [count, setCount] = useState(0);
     const [miniature, setMiniature] = useState(currentArticle.miniatureArticle);
     const [readedArticle, setReadedArticle] = useState(currentArticle);
+    const [waitlistNext, setWaitlistNext] = useState([]);
+    const [waitlistPrevious, setWaitlistPrevious] = useState([]);
+    const [seeWaitlist, setSeeWaitlist] = useState(false);
 
     const divStyle = {
         background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.80) 100%), url(data:image/jpeg;base64,' + miniature + ')',
@@ -33,10 +43,12 @@ function Reader({ currentArticle, emitClickEvent }) {
     };
 
     async function loadArticles(readedArticle, action) {
-        const data = await getData(readedArticle.id, action, readedArticle.type);
+        const data = await getFullArticles(readedArticle.id, action, readedArticle.type);
         if (data != null) {
             setReadedArticle(data);
             setMiniature(data.miniatureArticle);
+            loadWaitlist(data.type, data.id, "next");
+            loadWaitlist(data.type, data.id, "previous");
         }
     }
 
@@ -44,16 +56,28 @@ function Reader({ currentArticle, emitClickEvent }) {
         emitClickEvent(event);
     }
 
+    async function loadWaitlist(articleType, id, direction) {
+        const data = await getWaitlistArticle(articleType, id, direction);
+        if (direction == "next") {
+            setWaitlistNext(data);
+        } else if (direction == "previous") {
+            setWaitlistPrevious(data);
+        }
+    }
+
+
+
+
+
     return (
         <div className={(readedArticle.type == "podcast" && `${style.reader} ${style.podcast}` || readedArticle.type == "short" && `${style.reader} ${style.short}` || readedArticle.type == "video" && `${style.reader} ${style.video}` || `${style.reader} ${style.article}`)}>
 
-            <div style={divStyle}>
-            </div>
+            <div className={style.background} style={divStyle}></div>
 
             <div className={style.content}>
                 <button className={style.close} onClick={handleClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="63" height="40" viewBox="0 0 63 40" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3756 13.4658C18.9003 12.872 19.7792 12.8419 20.3388 13.3986L30.5 23.5063L40.6611 13.3986C41.2209 12.8419 42.0998 12.872 42.6245 13.4658C43.1489 14.0595 43.1206 14.9921 42.5611 15.5488L31.4499 26.6014C30.9157 27.1329 30.0844 27.1329 29.5501 26.6014L18.439 15.5488C17.8794 14.9921 17.851 14.0595 18.3756 13.4658Z" fill="#AC8AF4" />
+                        <path fillRule="evenodd" clipRule="evenodd" d="M18.3756 13.4658C18.9003 12.872 19.7792 12.8419 20.3388 13.3986L30.5 23.5063L40.6611 13.3986C41.2209 12.8419 42.0998 12.872 42.6245 13.4658C43.1489 14.0595 43.1206 14.9921 42.5611 15.5488L31.4499 26.6014C30.9157 27.1329 30.0844 27.1329 29.5501 26.6014L18.439 15.5488C17.8794 14.9921 17.851 14.0595 18.3756 13.4658Z" fill="#AC8AF4" />
                     </svg>
                 </button>
 
@@ -61,11 +85,7 @@ function Reader({ currentArticle, emitClickEvent }) {
                 <video className={style.videoMedia} controls controlsList="nodownload noplaybackrate nopictureinpicture" src={`data:video/mp4;base64,${readedArticle.media}`} />
 
                 <h1>{readedArticle.title}</h1>
-                <audio className={style.audio} autoplay controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
-
-
-
-
+                <audio className={style.audio} autoPlay controls controlsList="nodownload noplaybackrate" src={`data:audio/mp3;base64,${readedArticle.media}`} />
 
                 <section className={style.buttons}>
                     <button className={style.previous} onClick={() => setCount(loadArticles(readedArticle, "next"))}>
@@ -85,6 +105,33 @@ function Reader({ currentArticle, emitClickEvent }) {
                     </button>
                 </section>
             </div>
+
+            <section className={(!seeWaitlist ? style.waitList : `${style.waitList} ${style.waitListShown}`)}>
+                <div className={style.title} onClick={() => setSeeWaitlist(!seeWaitlist) + loadWaitlist(readedArticle.type, readedArticle.id, "next") + loadWaitlist(readedArticle.type, readedArticle.id, "previous")}>
+                    <section className={style.handle}></section>
+                    <h1>Votre playlist</h1>
+                </div>
+                <div className={style.waitListElements}>
+                    {waitlistPrevious.map((article, index) => (
+                        <section className={style.waitListElement} key={index}>
+                            <img src={`data:image/jpeg;base64,${article.miniatureArticle}`} />
+                            <h2>{article.title}</h2>
+                        </section>
+
+                    ))}
+                    <section className={`${style.waitListElement} ${style.waitListCurrent}`}>
+                        <img src={`data:image/jpeg;base64,${readedArticle.miniatureArticle}`} />
+                        <h2>{readedArticle.title}</h2>
+                    </section>
+                    {waitlistNext.map((article, index) => (
+                        <section className={style.waitListElement} key={index}>
+                            <img src={`data:image/jpeg;base64,${article.miniatureArticle}`} />
+                            <h2>{article.title}</h2>
+                        </section>
+                    ))}
+                </div>
+            </section>
+
         </div>
     )
     //si je suis au premier, pas de previous --> desac bouton

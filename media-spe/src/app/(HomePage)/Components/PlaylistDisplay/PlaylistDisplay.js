@@ -12,15 +12,16 @@ function PlaylistDisplay({ lastArt }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   function handleClickEvent(event, data) {
-    // click event object, 'Hello from child'
     setIsPlaying(false);
   }
 
+  function readerAnmi(){
+    
+  }
+
   if(lastArt.type == "video"){
-    console.log("short");
     path = "M-1 58.7034L392 -0.000732422V545.295L-1 603.999V58.7034Z";
   }else{
-    console.log("not short");
     path = path = "M0 101.773C0 77.0188 18.1134 55.9908 42.5948 52.3246L392 -0.000732422V503.726C392 528.48 373.887 549.508 349.405 553.175L0 605.5V101.773Z";
   }
 
@@ -54,9 +55,8 @@ function PlaylistDisplay({ lastArt }) {
         <h2>{lastArt.title}</h2>
 
       </section>
-
+      
       {(isPlaying ? <Reader emitClickEvent={handleClickEvent} currentArticle={lastArt} /> : null)}
-
 
     </div>
   )

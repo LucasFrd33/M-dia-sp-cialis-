@@ -8,9 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
-
+    background-color: #2A2A2A;
     z-index: 5;
 
     button {
@@ -35,6 +33,72 @@
 
     .miniature {
         width: 15rem;
+    }
+
+    .waitList {
+        height: fit-content;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        bottom: -20%;
+
+        transition: all 0.3s ease-in-out;
+
+        z-index: 25;
+        background-color: #2A2A2A;
+        padding-top: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        width: 100%;
+        border-radius: 0.625rem 0.625rem 0rem 0rem;
+
+
+        .title{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .waitListElements{
+            overflow-y: scroll;
+            height: 10rem;
+            width: fit-content;
+        }
+
+        .handle {
+            width: 2.4375rem;
+            height: 0.4375rem;
+            border-radius: 0.625rem;
+            background-color: #AC8AF4;
+            flex-shrink: 0;
+        }
+
+        .waitListElement {
+            display: flex;
+            opacity: 50%;
+            gap: 3rem;
+            margin-bottom: 0.5rem;
+
+            img {
+                width: 4.375rem;
+                height: 4.43375rem;
+                border-radius: 0.625rem;
+            }
+
+            h1{
+                padding-left: 0.6rem;
+            }
+        }
+
+        .waitListCurrent {
+            opacity: 100%;
+        }
+    }
+
+    .waitListShown{
+        bottom: 0rem;
     }
 }
 
@@ -119,9 +183,39 @@
 .video {
 
     .content {
+        align-items: baseline;
+
+        .close {
+            path {
+                fill: #4F81E3;
+            }
+        }
+
+        h1 {
+            color: #FFF;
+            font-family: Inter;
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            text-transform: capitalize;
+            padding-left: 1.8rem;
+        }
+
+        .buttons {
+            align-self: center;
+
+            .play {
+                path {
+                    fill: transparent;
+                }
+            }
+        }
 
         .videoMedia {
+            padding-top: 5rem;
             display: block;
+            width: 100vw;
         }
 
         .audio {
@@ -130,6 +224,14 @@
 
         .miniature {
             display: none;
+        }
+    }
+
+    .waitList {
+        
+
+        .handle {
+            background-color: #4F81E3;
         }
     }
 
@@ -181,6 +283,13 @@
 
         .miniature {
             display: none;
+        }
+    }
+    .waitList {
+        
+
+        .handle {
+            background-color: #FF8F44;
         }
     }
 }
