@@ -1,6 +1,6 @@
 import style from "../carousel.module.scss";
 
-function CarouCard({ article }) {
+function CarouCard({ article, openViewMore }) {
   return (
     <div className={style.cardCarou}>
       <img src={`data:image/jpeg;base64,${article.headlineImage}`} />
@@ -9,7 +9,7 @@ function CarouCard({ article }) {
           <h3>{article.title}</h3>
           <p>{article.text}</p>
         </div>
-        <button>Lire l’article</button>
+        <button onClick={openViewMore}>Lire l’article</button>
       </div>
     </div>
   );

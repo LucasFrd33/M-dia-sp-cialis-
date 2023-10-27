@@ -4,8 +4,9 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    background-size: cover;
     .blur{
-        backdrop-filter: blur(30px);
+        backdrop-filter: blur(20px);
         height: 100vh;
         width: 100vw;
         position: absolute;
@@ -25,18 +26,34 @@
                 margin: 0rem 0.2rem;
             }
             .current{
-                color: red;
+                color: #191919;
             }
         }
     }
     .controlCarou{
-        width: 100%;
+        width: 90%;
         position: absolute;
-        z-index: 10;
+        z-index: 4;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
         bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        button{
+            background-color: #FF8F44;
+            border: none;
+            color: white;
+            width: 2.3125rem;
+            height: 2.3125rem;
+            border-radius: 0.31rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button:first-child{
+            transform: rotate(180deg);
+        }
     }
     .containerCardCarou{
         width: fit-content;
@@ -49,7 +66,7 @@
         .cardCarou{
             border-radius: 0.63rem;
             margin: 19px 9.5px 19px 9.5px;
-            background-color: red;
+            background-color: #191919;
             width: 20.5625rem;
             height: 21.5625rem; 
             position: relative;
@@ -58,6 +75,7 @@
                 height: 100%;
                 object-fit: cover;
                 border-radius: 0.63rem;
+                outline: solid 3px #ff8f43;
             }
             .textCarouContainer{
                 background-color: #191919;
@@ -84,3 +102,55 @@
         }
     }
 }
+
+.viewMoreOpen{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #191919;
+    z-index: 6;
+    transform: translateY(0%);
+    transition: transform 0.5s ease-in-out;
+    button{
+        position: absolute;
+        z-index: 99;
+    }
+    .viewMoreImageBlur{
+        height: 20%;
+        background-size: cover;
+        filter: blur(45px);
+    }
+    .viewMoreImage{
+        position: absolute;
+        height: 40%;
+        background-size: cover;
+        z-index: 11;
+        left: 0;
+        bottom: 40%;
+        width: 100%;
+    }
+    .viewMoreText{
+        margin-top: 90%;
+        height: 37vh;
+        background-color: #191919;
+        padding: 2% 5%;
+        h2{
+            margin: 0;
+        }
+        p{
+            word-break: break-word;
+            overflow-y: scroll;
+        }
+    }
+}
+.viewMoreClose{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #191919;
+    z-index: 6;
+    transform: translateY(110%);
+    transition: transform 0.4s ease-in-out;
+}
+
+

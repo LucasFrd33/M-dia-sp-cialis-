@@ -7,9 +7,10 @@ import InfoCarou from "./components/InfoCarou";
 function Carou({ carouselArticles }) {
   const [currentCarou, setCurrentCarou] = useState(0);
   const [slide, setSlide] = useState(0);
+  const [viewMore, setviewMore] = useState(false);
 
   const backgroundCarou = {
-    backgroundImage: `url(data:image/jpeg;base64,${carouselArticles[currentCarou].miniatureArticle})`,
+    backgroundImage: `url(data:image/jpeg;base64,${carouselArticles[currentCarou].headlineImage})`,
   };
 
   function incrCurrentSlide() {
@@ -44,39 +45,86 @@ function Carou({ carouselArticles }) {
     }
     // console.log(`Arriere : ${slide}`);
   }
-
   const changeSlide = {
     transform: `translate(${slide}%)`,
   };
 
+  function openViewMore() {
+    setviewMore(!viewMore);
+    console.log(viewMore);
+  }
+
   return (
-    <div className={style.carrousel} style={backgroundCarou}>
-      <div className={style.blur}></div>
-
-      <div className={`${style.containerCardCarou}`} style={changeSlide}>
-        {carouselArticles.map((article) => (
-          <CarouCard article={article} key={article.id} />
-        ))}
+    <>
+      <div className={viewMore ? style.viewMoreOpen : style.viewMoreClose}>
+        <button onClick={openViewMore}>X</button>
+        <div className={style.viewMoreImageBlur} style={backgroundCarou}></div>
+        <div className={style.viewMoreImage} style={backgroundCarou}></div>
+        <div className={style.viewMoreText}>
+          <h2>{carouselArticles[currentCarou]?.title}</h2>
+          <p>{carouselArticles[currentCarou]?.text}</p>
+        </div>
       </div>
+      <div className={style.carrousel} style={backgroundCarou}>
+        <div className={style.blur}></div>
 
-      <div className={style.infoCarou}>
-        <div className={style.info}>
-          {carouselArticles.map((article, index) => (
-            <InfoCarou
+        <div className={`${style.containerCardCarou}`} style={changeSlide}>
+          {carouselArticles.map((article) => (
+            <CarouCard
               article={article}
-              index={index}
-              key={index}
-              currentCarou={currentCarou}
+              key={article.id}
+              openViewMore={() => openViewMore()}
             />
           ))}
         </div>
-      </div>
 
-      <div className={style.controlCarou}>
-        <button onClick={desincCurrentSlide}>{"<"}</button>
-        <button onClick={incrCurrentSlide}>{">"}</button>
+        <div className={style.infoCarou}>
+          <div className={style.info}>
+            {carouselArticles.map((article, index) => (
+              <InfoCarou
+                article={article}
+                index={index}
+                key={index}
+                currentCarou={currentCarou}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className={style.controlCarou}>
+          <button onClick={desincCurrentSlide}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="37"
+              height="37"
+              viewBox="0 0 37 37"
+              fill="none"
+            >
+              <rect width="37" height="37" rx="5" fill="#FF8F44" />
+              <path
+                d="M27 18L13.5 25.7942L13.5 10.2058L27 18Z"
+                fill="#FAFAFA"
+              />
+            </svg>
+          </button>
+          <button onClick={incrCurrentSlide}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="37"
+              height="37"
+              viewBox="0 0 37 37"
+              fill="none"
+            >
+              <rect width="37" height="37" rx="5" fill="#FF8F44" />
+              <path
+                d="M27 18L13.5 25.7942L13.5 10.2058L27 18Z"
+                fill="#FAFAFA"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
