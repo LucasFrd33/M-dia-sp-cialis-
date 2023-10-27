@@ -11,7 +11,6 @@ export async function POST(data) {
       media: body.media,
       miniatureArticle: body.miniatureArticle,
       isHeadline: body.isHeadline,
-      headlineImage: body.headlineImage,
       headlineTitle: body.headlineTitle,
     },
   });

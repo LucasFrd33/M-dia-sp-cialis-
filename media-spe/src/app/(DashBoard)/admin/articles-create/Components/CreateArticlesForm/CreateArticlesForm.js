@@ -107,18 +107,10 @@ function CreateArticlesForm() {
               <div>
                 <label>
                   Texte du carousel :
-                  <textarea
+                  <input
                     title="headlineTitle"
                     placeholder="Le titre de l'article"
                     {...register("headlineTitle")}
-                  />
-                </label>
-                <label>
-                  Image du carousel :
-                  <input
-                    title="headlineImage"
-                    type="file"
-                    {...register("headlineImage")}
                   />
                 </label>
               </div>
