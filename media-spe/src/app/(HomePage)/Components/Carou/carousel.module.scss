@@ -1,3 +1,11 @@
+
+.logo{
+    position: absolute;
+    top: 4.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .carrousel {
     overflow: hidden;
     width: 390px;
