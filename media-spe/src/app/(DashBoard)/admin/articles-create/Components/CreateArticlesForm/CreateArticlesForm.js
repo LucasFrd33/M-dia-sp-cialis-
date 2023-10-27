@@ -14,7 +14,6 @@ function CreateArticlesForm() {
     try {
       const miniatureArticle = data.miniatureArticle[0];
       const media = data.media[0];
-      const headlineImage = data.headlineImage[0];
 
       // Fonction pour lire un fichier comme DataURL
       const readFileAsDataURL = (file) => {
@@ -27,16 +26,14 @@ function CreateArticlesForm() {
       };
 
       // Lecture des fichiers
-      const [media64, miniatureArticle64, headlineImage64] = await Promise.all([
+      const [media64, miniatureArticle64] = await Promise.all([
         readFileAsDataURL(media),
         readFileAsDataURL(miniatureArticle),
-        readFileAsDataURL(headlineImage),
       ]);
 
       // Mise à jour des données avec les nouvelles valeurs encodées en base64
       data.media = media64;
       data.miniatureArticle = miniatureArticle64;
-      data.headlineImage = headlineImage64;
 
       // Envoi des données au serveur
       const response = await fetch("/api/article", {
