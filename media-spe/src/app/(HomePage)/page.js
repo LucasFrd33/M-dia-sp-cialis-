@@ -4,6 +4,7 @@ import PlaylistDisplay from "./Components/PlaylistDisplay/PlaylistDisplay";
 import Reader from "./Components/Reader/Reader";
 import Carousel from "./Components/Carrousel/Carrousel";
 import Carou from "./Components/Carou/Carou";
+import { Suspense } from "react";
 
 export default async function HomePage() {
   // const items = [
@@ -73,9 +74,19 @@ export default async function HomePage() {
     <>
 
       <Carou carouselArticles={carouselArticles} />
-      <PlaylistDisplay lastArt={lastPodcast} />
-      <PlaylistDisplay lastArt={lastShort} />
-      <PlaylistDisplay lastArt={lastVideo} />
+
+      <Suspense fallback={<div>Chargement</div>}>
+        <PlaylistDisplay lastArt={lastPodcast} />
+      </Suspense>
+
+      <Suspense fallback={<div>Chargement</div>}>
+        <PlaylistDisplay lastArt={lastShort} />
+      </Suspense>
+
+      <Suspense fallback={<div>Chargement</div>}>
+        <PlaylistDisplay lastArt={lastVideo} />
+      </Suspense>
+
       {/* <PlaylistDisplay lastArt={lastArticle} />*/}
     </>
   );
