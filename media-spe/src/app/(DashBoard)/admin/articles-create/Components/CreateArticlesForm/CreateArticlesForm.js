@@ -88,7 +88,7 @@ function CreateArticlesForm() {
           <select {...register("type")}>
             <option value="article">Article</option>
             <option value="video">Vidéo</option>
-            <option value="shorts">Vidéo courte</option>
+            <option value="short">Vidéo courte</option>
             <option value="podcast">Podcast</option>
           </select>
         </label>
