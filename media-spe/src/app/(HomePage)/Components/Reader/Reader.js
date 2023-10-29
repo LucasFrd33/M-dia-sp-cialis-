@@ -20,8 +20,17 @@ async function getWaitlistArticle(articleType, articleId, direction) {
     return results.json()
 }
 
+async function getArticle(articleId) {
+    const results = await fetch(`/api/waitListClick/${articleId}`, {
+        method: "GET",
+    });
+    return results.json()
+}
+
 
 function Reader({ currentArticle, emitClickEvent }) {
+
+
 
     const [count, setCount] = useState(0);
     const [miniature, setMiniature] = useState(currentArticle.miniatureArticle);
@@ -29,6 +38,7 @@ function Reader({ currentArticle, emitClickEvent }) {
     const [waitlistNext, setWaitlistNext] = useState([]);
     const [waitlistPrevious, setWaitlistPrevious] = useState([]);
     const [seeWaitlist, setSeeWaitlist] = useState(false);
+
 
     const divStyle = {
         background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.80) 100%), url(data:image/jpeg;base64,' + miniature + ')',
@@ -38,8 +48,6 @@ function Reader({ currentArticle, emitClickEvent }) {
         top: '0',
         left: '0',
         filter: 'blur(8px)',
-        backgroundSize: "cover",
-        backgroundPosition: "center"
     };
 
     async function loadArticles(readedArticle, action) {
@@ -67,7 +75,15 @@ function Reader({ currentArticle, emitClickEvent }) {
 
 
 
+    async function loadFirst() {
+        const data = await getArticle(currentArticle.id);
+        if (data != null) {
+            setReadedArticle(data);
+            setMiniature(data.miniatureArticle);
+        }
+    }
 
+    const [firstData] = React.useState(() => loadFirst());
 
     return (
         <div className={(readedArticle.type == "podcast" && `${style.reader} ${style.podcast}` || readedArticle.type == "short" && `${style.reader} ${style.short}` || readedArticle.type == "video" && `${style.reader} ${style.video}` || `${style.reader} ${style.article}`)}>

@@ -7,14 +7,6 @@ import Carou from "./Components/Carou/Carou";
 import { Suspense } from "react";
 
 export default async function HomePage() {
-  // const items = [
-  //   <img src="../_a0f23d48-44ca-4d28-976a-321a74670fe6.jpeg" alt="Image 1" />,
-  //   <img src="../_d0477d81-225d-44dc-9b5e-33c682a4f844.jpeg" alt="Image 2" />,
-  //   <video
-  //     src="../cm-chat-media-video-1_c4a3b2d4-c4d8-4d5a-9264-a806f45286c6_177_0_0.mov"
-  //     controls
-  //   />,
-  // ];
   const today = new Date();
   let millisecondsInADay = 24 * 60 * 60 * 1000;
   let yesterdayMilliseconds = today.getTime() - millisecondsInADay;
@@ -37,6 +29,13 @@ export default async function HomePage() {
     orderBy: {
       id: "desc",
     },
+    select: {
+      id: true,
+      miniatureArticle: true,
+      title: true,
+      type: true,
+      date: true,
+    },
     take: 1,
   });
 
@@ -46,6 +45,13 @@ export default async function HomePage() {
     },
     orderBy: {
       id: "desc",
+    },
+    select: {
+      id: true,
+      miniatureArticle: true,
+      title: true,
+      type: true,
+      date: true,
     },
     take: 1,
   });
@@ -57,6 +63,13 @@ export default async function HomePage() {
     orderBy: {
       id: "desc",
     },
+    select: {
+      id: true,
+      miniatureArticle: true,
+      title: true,
+      type: true,
+      date: true,
+    },
     take: 1,
   });
 
@@ -67,6 +80,13 @@ export default async function HomePage() {
     orderBy: {
       id: "desc",
     },
+    select: {
+      id: true,
+      miniatureArticle: true,
+      title: true,
+      type: true,
+      date: true,
+    },
     take: 1,
   });
 
@@ -75,17 +95,12 @@ export default async function HomePage() {
 
       <Carou carouselArticles={carouselArticles} />
 
-      <Suspense fallback={<div>Chargement</div>}>
-        <PlaylistDisplay lastArt={lastPodcast} />
-      </Suspense>
+      <PlaylistDisplay lastArt={lastPodcast} />
 
-      {/* <Suspense fallback={<div>Chargement</div>}>
-        <PlaylistDisplay lastArt={lastShort} />
-      </Suspense>
 
-      <Suspense fallback={<div>Chargement</div>}>
-        <PlaylistDisplay lastArt={lastVideo} />
-      </Suspense> */}
+      <PlaylistDisplay lastArt={lastShort} />
+
+      <PlaylistDisplay lastArt={lastVideo} />
 
       {/* <PlaylistDisplay lastArt={lastArticle} />*/}
     </>

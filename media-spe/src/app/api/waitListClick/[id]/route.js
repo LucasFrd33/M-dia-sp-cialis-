@@ -5,7 +5,7 @@ export async function GET(req, { params }) {
 
     const id = params.id;
   
-    const articles = await prisma.articles.findMany({
+    const articles = await prisma.articles.findFirst({
       where: {
         id: parseInt(id),
       },
