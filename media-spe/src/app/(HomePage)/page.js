@@ -75,9 +75,9 @@ export default async function HomePage() {
 
       <Carou carouselArticles={carouselArticles} />
 
-      <Suspense fallback={<div>Chargement</div>}>
+      {/* <Suspense fallback={<div>Chargement</div>}>
         <PlaylistDisplay lastArt={lastPodcast} />
-      </Suspense>
+      </Suspense> */}
 
       {/* <Suspense fallback={<div>Chargement</div>}>
         <PlaylistDisplay lastArt={lastShort} />
