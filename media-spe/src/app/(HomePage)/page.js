@@ -79,9 +79,13 @@ export default async function HomePage() {
         <PlaylistDisplay lastArt={lastPodcast} />
       </Suspense>
 
-      <Suspense fallback={<div>Chargement</div>}>
+      {/* <Suspense fallback={<div>Chargement</div>}>
         <PlaylistDisplay lastArt={lastShort} />
       </Suspense>
+
+      <Suspense fallback={<div>Chargement</div>}>
+        <PlaylistDisplay lastArt={lastVideo} />
+      </Suspense> */}
 
       {/* <PlaylistDisplay lastArt={lastArticle} />*/}
     </>
